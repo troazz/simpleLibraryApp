@@ -7,9 +7,10 @@ app/storage/
 
 # Laravel 5 & Lumen specific
 bootstrap/cache/
-storage/
+storage/app/
+storage/debugbar/
+storage/log/
 .phpintel/
 .env.*.php
 .env.php
-.env
 .env.example
