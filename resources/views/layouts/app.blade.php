@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Simple Library</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -13,8 +13,10 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+    {!! Html::style('css/style.css') !!}
+    {!! Html::style('plugins/magicsuggest/magicsuggest-min.css') !!}
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: 'Lato';
@@ -48,10 +50,10 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     @if (\Auth::user())
-                        <li {{ (isset($active_menu) && $active_menu == 'category') ? 'class="active"' : '' }} ><a href="{{ url('/category') }}">Category</a></li>
-                        <li {{ (isset($active_menu) && $active_menu == 'writer') ? 'class="active"' : '' }} ><a href="{{ url('/writer') }}">Writer</a></li>
-                        <li {{ (isset($active_menu) && $active_menu == 'publisher') ? 'class="active"' : '' }} ><a href="{{ url('/publisher') }}">Publisher</a></li>
-                        <li {{ (isset($active_menu) && $active_menu == 'book') ? 'class="active"' : '' }} ><a href="{{ url('/book') }}">Book</a></li>
+                        <li {{ (isset($active_menu) && $active_menu == 'category') ? 'class=active' : '' }} ><a href="{{ url('/category') }}">Category</a></li>
+                        <li {{ (isset($active_menu) && $active_menu == 'writer') ? 'class=active' : '' }} ><a href="{{ url('/writer') }}">Writer</a></li>
+                        <li {{ (isset($active_menu) && $active_menu == 'publisher') ? 'class=active' : '' }} ><a href="{{ url('/publisher') }}">Publisher</a></li>
+                        <li {{ (isset($active_menu) && $active_menu == 'book') ? 'class=active' : '' }} ><a href="{{ url('/book') }}">Book</a></li>
                     @endif
                 </ul>
 
@@ -79,9 +81,26 @@
 
     @yield('content')
 
+    <!-- Modal -->
+    <div class="modal fade" id="ajax-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    {!! Html::script('plugins/magicsuggest/magicsuggest-min.js') !!}
+    {!! Html::script('js/main.js') !!}
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>

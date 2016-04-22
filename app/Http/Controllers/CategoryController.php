@@ -12,6 +12,8 @@ class CategoryController extends Controller
     {
         $category    = new Category();
         $active_menu = 'category';
+
+        // proccess when saving category
         if ($request->isMethod('post')){
             $rules = [
                 'name'     => 'required',
@@ -24,16 +26,36 @@ class CategoryController extends Controller
                 $category->name = $request->input('name');
                 $category->save();
                 \Session::flash('flash_message', "Category successfully ".($new ? 'created' : 'updated').".");
-
-                return redirect('user');
+                parse_str(parse_url(url()->previous(), PHP_URL_QUERY),$param);
+                return redirect(route('category', $param));
             } else {
 
                 return redirect()->back()->withErrors($v->errors())->withInput();
             }
         }elseif ($id)
             $category = Category::find($id);
-        $categories = Category::paginate(20);
 
-        return view('category/index', compact('category', 'active_menu', 'categories'));
+        // get list categories
+        $param = [];
+        if ($request->input('page'))
+            $param['page'] = $request->input('page');
+        $q = $request->input('q');
+        $categories = Category::orderBy('name', 'asc');
+        if ($q){
+            $categories = $categories->where('name', 'like', "%$q%");
+            $param['q'] = $q;
+        }
+        $categories = $categories->paginate(10);
+        $categories->appends($param);
+
+        return view('category/index', compact('category', 'active_menu', 'categories', 'request', 'param'));
+    }
+
+    public function delete($id)
+    {
+        Category::where('id', $id)->delete();
+        \Session::flash('flash_message', "Category successfully deleted.");
+
+        return redirect()->back();
     }
 }

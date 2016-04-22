@@ -24,5 +24,18 @@ class Book extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
+    /**
+     * Convert the model instance to an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $attributes = $this->attributesToArray();
+        $attributes = array_merge($attributes, $this->relationsToArray());
+        unset($attributes['pivot']['created_at']);
+        return $attributes;
+    }
 }
 ?>

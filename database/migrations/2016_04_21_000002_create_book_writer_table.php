@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBookKeywordsTable extends Migration
+class CreateBookWriterTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,19 +12,19 @@ class CreateBookKeywordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('book_keywords', function (Blueprint $table) {
+        Schema::create('book_writer', function (Blueprint $table) {
             $table->integer('book_id')
                 ->unsigned();
-            $table->integer('keyword_id')
+            $table->integer('writer_id')
                 ->unsigned();
             $table->foreign('book_id')
                 ->references('id')
                 ->on('books')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->foreign('keyword_id')
+            $table->foreign('writer_id')
                 ->references('id')
-                ->on('keywords')
+                ->on('writers')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -37,6 +37,6 @@ class CreateBookKeywordsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('book_keywords');
+        Schema::drop('book_writers');
     }
 }
