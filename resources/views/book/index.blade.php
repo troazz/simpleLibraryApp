@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row">
         @include('_flashmessage')
+        {!! $v_count !!}
         <div class="col-lg-12">
             <div class="clearfix">
                 <h4 class="pull-left">List Book</h4>

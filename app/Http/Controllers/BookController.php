@@ -173,7 +173,14 @@ class BookController extends Controller
         $books = $books->paginate(10);
         $books->appends($param);
 
-        return view('book/index', compact('books', 'active_menu', 'request'));
+        $count = [
+            'count_book' => Book::count(),
+            'count_writer' => Writer::count(),
+            'count_publisher' => Publisher::count(),
+        ];
+        $v_count = view('book/_count', $count);
+
+        return view('book/index', compact('books', 'active_menu', 'request', 'v_count'));
     }
 
     public function remote(Request $request, $type)
